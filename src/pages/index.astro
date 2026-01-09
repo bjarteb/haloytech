@@ -1,11 +1,15 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import EventHero from '../components/event/EventHero.astro';
+import EventCTA from '../components/event/EventCTA.astro';
+import EventFooter from '../components/event/EventFooter.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Creative Summit 2026 - Where Innovation Meets Imagination"
+	description="Join us March 15-17 in San Francisco for 3 days of creative workshops, world-class speakers, and networking."
+>
+	<EventHero />
+	<EventCTA />
+	<EventFooter />
 </Layout>
