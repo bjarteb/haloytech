@@ -1,0 +1,35 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+	<Header />
+	<main class="page-container">
+		<slot />
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.page-container {
+		min-height: calc(100vh - 200px);
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 3rem 2rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		.page-container {
+			padding: 2rem 1rem;
+		}
+	}
+</style>

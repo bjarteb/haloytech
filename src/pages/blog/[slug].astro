@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts
+		.filter(post => !post.data.draft)
+		.map((post) => ({
+			params: { slug: post.slug },
+			props: { post },
+		}));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Calculate reading time
+const wordCount = post.body.split(/\s+/).length;
+const readingTime = `${Math.ceil(wordCount / 200)} min read`;
+---
+
+<BlogLayout post={post} readingTime={readingTime}>
+	<Content />
+</BlogLayout>

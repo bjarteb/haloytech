@@ -1,0 +1,146 @@
+---
+// BlogHero Component - Hero section for blog homepage
+---
+
+<section id="hero">
+	<img src="/utsikt-fra-totlandsfjellet.jpg" alt="Banner" class="hero-image" />
+	<div class="hero-overlay"></div>
+
+	<div class="hero-content">
+		<h1 class="site-title gradient-text">haloy.tech</h1>
+		<p class="tagline">Developer Tips & Tricks</p>
+		<p class="subtitle">Practical solutions for developers</p>
+	</div>
+</section>
+
+<style>
+	#hero {
+		position: relative;
+		height: 35vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		z-index: 0;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.5) 100%
+		);
+		z-index: 1;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 2;
+		text-align: center;
+		max-width: 900px;
+		padding: 2rem;
+	}
+
+	.site-title {
+		font-size: clamp(3rem, 6vw, 5rem);
+		font-weight: 900;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		margin: 0 0 1rem;
+		opacity: 0;
+		animation: fadeInUp 0.8s ease-out 400ms forwards;
+	}
+
+	.tagline {
+		font-size: clamp(1.5rem, 3vw, 2.25rem);
+		color: var(--color-text-light);
+		margin: 0 0 1rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		opacity: 0;
+		animation: fadeInUp 0.8s ease-out 600ms forwards;
+	}
+
+	.subtitle {
+		font-size: clamp(1rem, 2vw, 1.25rem);
+		color: var(--color-text-medium);
+		margin: 0;
+		font-weight: 400;
+		opacity: 0;
+		animation: fadeInUp 0.8s ease-out 800ms forwards;
+	}
+
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(30px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*, *::before, *::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		#hero {
+			height: 30vh;
+		}
+
+		.site-title {
+			font-size: 2.5rem;
+		}
+
+		.tagline {
+			font-size: 1.25rem;
+		}
+
+		.subtitle {
+			font-size: 0.9rem;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		#hero {
+			height: 25vh;
+		}
+
+		.hero-content {
+			padding: 1rem;
+		}
+
+		.site-title {
+			font-size: 2rem;
+		}
+
+		.tagline {
+			font-size: 1rem;
+		}
+
+		.subtitle {
+			font-size: 0.85rem;
+		}
+	}
+</style>

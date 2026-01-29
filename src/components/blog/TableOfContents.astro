@@ -1,0 +1,115 @@
+---
+interface Heading {
+	depth: number;
+	text: string;
+	slug: string;
+}
+
+interface Props {
+	headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// Filter to only h2 and h3
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+
+{tocHeadings.length > 0 && (
+	<aside class="toc">
+		<nav>
+			<h2 class="toc-title">On this page</h2>
+			<ul class="toc-list">
+				{tocHeadings.map((heading) => (
+					<li class={`toc-item depth-${heading.depth}`}>
+						<a href={`#${heading.slug}`}>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	</aside>
+)}
+
+<style>
+	.toc {
+		position: sticky;
+		top: 5rem;
+		max-height: calc(100vh - 7rem);
+		overflow-y: auto;
+		padding: 1.5rem;
+		background: rgba(26, 26, 26, 0.8);
+		backdrop-filter: blur(12px);
+		border: 1px solid rgba(59, 130, 246, 0.2);
+		border-radius: var(--radius-lg);
+	}
+
+	.toc-title {
+		font-size: 0.875rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--color-primary);
+		margin: 0 0 1rem;
+	}
+
+	.toc-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.toc-item {
+		margin-bottom: 0.5rem;
+	}
+
+	.toc-item a {
+		display: block;
+		color: var(--color-text-medium);
+		text-decoration: none;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		padding: 0.25rem 0;
+		border-left: 2px solid transparent;
+		padding-left: 0.75rem;
+		transition: all 0.2s ease;
+	}
+
+	.toc-item a:hover {
+		color: var(--color-text-light);
+		border-left-color: var(--color-primary);
+	}
+
+	.toc-item.depth-3 a {
+		padding-left: 1.5rem;
+		font-size: 0.8125rem;
+	}
+
+	/* Active state - would need JS to implement */
+	.toc-item a.active {
+		color: var(--color-primary);
+		border-left-color: var(--color-primary);
+	}
+
+	/* Scrollbar styling */
+	.toc::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	.toc::-webkit-scrollbar-track {
+		background: rgba(59, 130, 246, 0.1);
+		border-radius: var(--radius-sm);
+	}
+
+	.toc::-webkit-scrollbar-thumb {
+		background: var(--color-primary);
+		border-radius: var(--radius-sm);
+	}
+
+	@media screen and (max-width: 768px) {
+		.toc {
+			display: none;
+		}
+	}
+</style>

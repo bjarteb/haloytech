@@ -1,15 +1,84 @@
 ---
-import EventHero from '../components/event/EventHero.astro';
-import EventCTA from '../components/event/EventCTA.astro';
-import EventFooter from '../components/event/EventFooter.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import BlogHero from '../components/blog/BlogHero.astro';
+import BlogPostCard from '../components/blog/BlogPostCard.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts, filter out drafts, and sort by date
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.filter(post => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout
-	title="Creative Summit 2026 - Where Innovation Meets Imagination"
-	description="Join us March 15-17 in San Francisco for 3 days of creative workshops, world-class speakers, and networking."
->
-	<EventHero />
-	<EventCTA />
-	<EventFooter />
+<Layout>
+	<Header />
+	<BlogHero />
+	<main class="posts-section">
+		<div class="posts-container">
+			<h2 class="section-title">Latest Posts</h2>
+			{posts.length === 0 ? (
+				<p class="no-posts">No posts yet. Check back soon!</p>
+			) : (
+				<div class="posts-grid">
+					{posts.map((post) => (
+						<BlogPostCard post={post} />
+					))}
+				</div>
+			)}
+		</div>
+	</main>
+	<Footer />
 </Layout>
+
+<style>
+	.posts-section {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 4rem 2rem;
+	}
+
+	.posts-container {
+		width: 100%;
+	}
+
+	.section-title {
+		font-size: 2rem;
+		font-weight: 800;
+		margin: 0 0 2rem;
+		background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 2rem;
+	}
+
+	.no-posts {
+		text-align: center;
+		color: var(--color-text-medium);
+		font-size: 1.125rem;
+		padding: 3rem 0;
+	}
+
+	@media screen and (max-width: 768px) {
+		.posts-section {
+			padding: 3rem 1rem;
+		}
+
+		.section-title {
+			font-size: 1.75rem;
+		}
+
+		.posts-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,110 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="About | haloy.tech"
+	description="Learn more about haloy.tech - a developer blog focused on practical tips and tricks"
+>
+	<article class="about-page prose">
+		<h1 class="gradient-text">About haloy.tech</h1>
+
+		<p>
+			Welcome to <strong>haloy.tech</strong> – a blog dedicated to sharing practical solutions,
+			tips, and tricks for developers. Whether you're debugging a tricky issue, learning a new
+			framework, or optimizing your workflow, you'll find useful content here.
+		</p>
+
+		<h2>What You'll Find Here</h2>
+
+		<ul>
+			<li><strong>Developer Tips</strong> – Quick wins and best practices</li>
+			<li><strong>Code Snippets</strong> – Reusable solutions to common problems</li>
+			<li><strong>Tutorials</strong> – Step-by-step guides for frameworks and tools</li>
+			<li><strong>Insights</strong> – Lessons learned from real-world projects</li>
+		</ul>
+
+		<h2>Tech Stack</h2>
+
+		<p>
+			This site is built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
+			a modern static site generator that delivers lightning-fast performance. The blog uses
+			<strong>TypeScript</strong> for type safety and <strong>Content Collections</strong> for
+			managing posts.
+		</p>
+
+		<h2>Connect</h2>
+
+		<p>
+			Find me on <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+			or subscribe to the <a href="/rss.xml">RSS feed</a> to stay updated with new posts.
+		</p>
+
+		<div class="cta-box">
+			<h3>Start Exploring</h3>
+			<p>Check out the latest posts and discover practical solutions for your projects.</p>
+			<a href="/" class="cta-button">View Blog Posts</a>
+		</div>
+	</article>
+</PageLayout>
+
+<style>
+	.about-page {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.about-page h1 {
+		margin-top: 0;
+	}
+
+	.cta-box {
+		margin-top: 3rem;
+		padding: 2rem;
+		background: rgba(26, 26, 26, 0.8);
+		backdrop-filter: blur(12px);
+		border: 1px solid rgba(59, 130, 246, 0.2);
+		border-radius: var(--radius-xl);
+		text-align: center;
+	}
+
+	.cta-box h3 {
+		margin-top: 0;
+		color: var(--color-primary);
+	}
+
+	.cta-box p {
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.875rem 2rem;
+		font-size: 1.125rem;
+		font-weight: 600;
+		text-decoration: none;
+		border-radius: var(--radius-lg);
+		color: white;
+		background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+		box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+		transition: all 0.3s ease;
+		border: none;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 24px rgba(37, 99, 235, 0.6);
+	}
+
+	@media screen and (max-width: 768px) {
+		.cta-box {
+			padding: 1.5rem;
+		}
+
+		.cta-button {
+			padding: 0.75rem 1.5rem;
+			font-size: 1rem;
+		}
+	}
+</style>

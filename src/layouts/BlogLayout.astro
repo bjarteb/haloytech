@@ -1,0 +1,48 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import BlogPostHeader from '../components/blog/BlogPostHeader.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+	readingTime: string;
+}
+
+const { post, readingTime } = Astro.props;
+const { title, description, heroImage } = post.data;
+---
+
+<Layout title={`${title} | haloy.tech`} description={description} image={heroImage}>
+	<Header />
+	<main class="blog-post-container">
+		<article>
+			<BlogPostHeader post={post} readingTime={readingTime} />
+			<div class="prose">
+				<slot />
+			</div>
+		</article>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.blog-post-container {
+		min-height: calc(100vh - 200px);
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem;
+	}
+
+	article {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	@media screen and (max-width: 768px) {
+		.blog-post-container {
+			padding: 1.5rem 1rem;
+		}
+	}
+</style>

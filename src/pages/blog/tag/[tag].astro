@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BlogPostCard from '../../../components/blog/BlogPostCard.astro';
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('blog');
+	const posts = allPosts.filter(post => !post.data.draft);
+
+	// Get all unique tags
+	const allTags = new Set<string>();
+	posts.forEach(post => {
+		post.data.tags.forEach(tag => allTags.add(tag));
+	});
+
+	// Create a page for each tag
+	return Array.from(allTags).map(tag => ({
+		params: { tag },
+		props: {
+			posts: posts.filter(post => post.data.tags.includes(tag))
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+			tag
+		}
+	}));
+}
+
+const { posts, tag } = Astro.props;
+---
+
+<PageLayout
+	title={`Posts tagged "${tag}" | haloy.tech`}
+	description={`All blog posts tagged with ${tag}`}
+>
+	<div class="tag-page">
+		<header class="page-header">
+			<div class="tag-badge">#{tag}</div>
+			<h1 class="page-title gradient-text">Posts tagged "{tag}"</h1>
+			<p class="post-count">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+		</header>
+
+		<div class="posts-grid">
+			{posts.map((post) => (
+				<BlogPostCard post={post} />
+			))}
+		</div>
+	</div>
+</PageLayout>
+
+<style>
+	.tag-page {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.tag-badge {
+		display: inline-block;
+		padding: 0.5rem 1rem;
+		font-size: 1rem;
+		font-family: var(--font-mono);
+		color: var(--color-primary);
+		background: rgba(59, 130, 246, 0.1);
+		border: 1px solid rgba(59, 130, 246, 0.3);
+		border-radius: 999px;
+		margin-bottom: 1rem;
+	}
+
+	.page-title {
+		font-size: clamp(2rem, 5vw, 3rem);
+		font-weight: 900;
+		line-height: 1.2;
+		margin: 0 0 0.5rem;
+	}
+
+	.post-count {
+		color: var(--color-text-medium);
+		font-size: 1.125rem;
+		margin: 0;
+	}
+
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: 2rem;
+	}
+
+	@media screen and (max-width: 768px) {
+		.page-title {
+			font-size: 2rem;
+		}
+
+		.posts-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>
