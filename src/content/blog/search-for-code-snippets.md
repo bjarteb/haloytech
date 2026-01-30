@@ -3,6 +3,7 @@ title: "Search for Code Snippets"
 description: "Quickly search for code snippets and examples directly from the command line using GitHub's search capabilities."
 pubDate: 2024-08-12
 tags: ["github", "cli", "bash", "productivity", "development"]
+heroImage: "/skagemarka-vei-01.jpg"
 draft: false
 ---
 
