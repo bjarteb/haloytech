@@ -3,6 +3,7 @@ title: "List Your psql Scripts"
 description: "Organize and quickly access your PostgreSQL scripts from within psql using aliases and clever shell tricks."
 pubDate: 2024-09-26
 tags: ["postgresql", "bash", "database", "scripts", "productivity"]
+heroImage: "/storrinden-nedfall-02.jpg"
 draft: false
 ---
 
