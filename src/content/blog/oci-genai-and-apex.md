@@ -6,6 +6,8 @@ tags: ["oracle", "apex", "genai", "oci", "rag", "devops", "automation"]
 draft: false
 ---
 
+![LiveLabs](/livelab-01.png)
+
 ## Introduction
 
 In honor of Joel Kallman, I have been playing with one of the Livelabs from [https://livelabs.oracle.com](https://livelabs.oracle.com): "Analyze Document store with RAG on Oracle APEX". These Livelabs give insights, ideas, and open my eyes to what is possible with Oracle technology.
