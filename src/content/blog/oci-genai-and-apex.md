@@ -3,6 +3,7 @@ title: "OCI GenAI and APEX"
 description: "Building a RAG chatbot with Oracle Cloud GenAI services and APEX - a GitOps approach to automating LiveLabs."
 pubDate: 2025-10-15
 tags: ["oracle", "apex", "genai", "oci", "rag", "devops", "automation"]
+heroImage: "/storrinden-vinter-01.jpg"
 draft: false
 ---
 
