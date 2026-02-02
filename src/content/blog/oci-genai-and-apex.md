@@ -20,6 +20,8 @@ The challenge: How can I iteratively develop my skills? **Automate and make the 
 
 The goal is to stay in the terminal and install a working APEX application that invokes the OCI GenAI agent service:
 
+![APEX RAG Chatbot](/apex-rag-chatbot.png)
+
 - Provision OCI GenAI services
 - Create OCI user with correct privileges
 - Create APEX workspace
@@ -161,6 +163,10 @@ oci iam user api-key upload --user-id "${USER_OCID}" \
 
 ## Section 2: APEX Configuration
 
+Let's move into APEX land. The APEX app needs to communicate with object storage (REST) and the GenAI agent (REST).
+
+![APEX RAG Chatbot Setup](/apex-rag-chatbot-02.png)
+
 ### Create APEX Workspace
 
 Using SQLcl, create the APEX workspace:
@@ -271,6 +277,10 @@ Login with:
 - **Workspace**: RAG
 - **Username**: RAG
 - **Password**: (your configured password)
+
+![APEX RAG Ingest Progress](/apex-rag-ingest-progress.png)
+
+![APEX RAG Ingest Success](/apex-rag-ingest-success.png)
 
 ## What I Learned
 
