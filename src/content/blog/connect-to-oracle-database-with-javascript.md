@@ -1,22 +1,35 @@
 ---
 title: "Connect to Oracle Database with JavaScript"
-description: "Organize and quickly access your PostgreSQL scripts from within psql using aliases and clever shell tricks."
+description: "Spin up Oracle AI Database 26ai with Docker Compose, explore it with SQLcl, and query it from a TypeScript project using the oracledb driver."
 pubDate: 2026-07-21
-tags: ["oracle", "javascript", "database", "scripts", "productivity"]
-heroImage: "/storrinden-nedfall-02.jpg"
+tags: ["oracle", "javascript", "database", "scripts", "typescript"]
+heroImage: "/kvamskogen-nedenfor-trappefossen-01.png"
 draft: false
 ---
 
 ## Introduction
 
-Let us connect to Oracle AI Database 26ai using JavaScript/TypeScript
-We will make use of the 
+Running a local Oracle database and querying it from Node.js is just as easy as doing the same with any other database technology.
 
-## Setting Up a Oracle Database with Docker Compose
+In this post we'll:
+
+* Start Oracle AI Database 26ai locally with a single `docker-compose.yml`, using the free `gvenzl/oracle-free` image
+* Auto-seed it on startup with a sample `countries`/`cities`/`currencies` dataset via an init script
+* Poke around the schema with SQLcl, using its built-in aliases instead of hand-written catalog queries
+* Set up a small TypeScript project and install the official `oracledb` npm module
+* Write a `countries.ts` script that connects using credentials from a `.env` file and streams the `COUNTRIES` table back with a `ResultSet`
+
+By the end you'll have a disposable, fully scripted Oracle setup and a minimal TypeScript querying pattern you can reuse in real projects.
+
+## Setting Up an Oracle Database with Docker Compose
 
 ### Docker Compose Configuration
 
 First, let's create a Oracle Database server to work with:
+
+```bash
+cat docker-compose.yml
+```
 
 ```yaml
 services:
@@ -36,12 +49,12 @@ services:
 
 We have mounted a init_scripts directory where it's content will be run after database startup
 This is what will happen:
-* Download install.sql file using curl
+* Downloads the install.sql file using curl
 * Set TWO_TASK=//localhost:1521/FREEPDB1 (1521 is default and can be left out). TWO_TASK is an old friend
   I always set so I easily can switch between accounts (user/pass) without specifying the host:[port]/SERVICE_NAME part.  
-* Login to the database with the dev account specified in the docker-compose.yml file
-* Run the install.sql script
-* Cleanup (delete the install.sql)
+* Logs in to the database with the dev account specified in the docker-compose.yml file
+* Runs the install.sql script
+* Cleans up (deletes install.sql)
 
 
 ```bash
@@ -70,9 +83,9 @@ db        gvenzl/oracle-free:slim-faststart   "container-entrypoin…"   oracle 
 ```
 
 Let's make sure the tables have been created
-* set TWO_TASK
-* Login using the SQLcl client (brew install sqlcl. GraalVM for JavaScript engine to configure fanzy prompt).
-* List tables using SQLcl alias. SQLcl has an alias for everything. No need to query the catalog by hand.
+* Set TWO_TASK
+* Log in using the SQLcl client (`brew install sqlcl`. Uses GraalVM's JavaScript engine to power the fancy prompt).
+* List tables using a SQLcl alias. SQLcl has an alias for everything, so there's no need to query the catalog by hand.
 
 ```bash
 export TWO_TASK=localhost/FREEPDB1
@@ -102,7 +115,7 @@ CURRENCIES_COUNTRIES
 REGIONS
 ```
 
-## It is time to query our Oracle Database using Javascript
+## Querying the Oracle Database from JavaScript
 
 
 ### Create a typescript project
@@ -208,4 +221,10 @@ async function runApp(): Promise<void> {
 }
 runApp();
 ```
+
+## Conclusion
+
+With a single Docker Compose file and the official `oracledb` npm module, you now have a fully disposable Oracle AI Database 26ai environment and a working TypeScript script that connects to it, runs a query, and streams the results back row by row using a `ResultSet`.
+
+From here, the same pattern — `getConnection`, `execute` with `resultSet: true`, and `OUT_FORMAT_OBJECT` — scales to bind parameters, transactions, and PL/SQL calls, so you can build on this foundation for real application code.
 
