@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import TagList from './TagList.astro';
-import { Image } from 'astro:components';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
@@ -55,7 +54,7 @@ const formattedUpdatedDate = updatedDate ? new Date(updatedDate).toLocaleDateStr
 
 	{heroImage && (
 		<div class="hero-image">
-			<img src={heroImage} alt={title} width="1200" height="600" loading="lazy" />
+			<img src={heroImage} alt={title} loading="lazy" />
 		</div>
 	)}
 
